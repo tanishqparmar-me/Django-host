@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <style>
+        /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Chat Container */
+.chat-container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Chat Title */
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* Messages Area */
+.messages {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fafafa;
+}
+
+/* Individual Message */
+.message {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+/* Username Styling */
+.message strong {
+    color: #007bff;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Input Fields */
+input[type="text"],
+textarea {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+/* Textarea Specific Styles */
+textarea {
+    resize: none; /* Prevent resizing */
+    height: 100px; /* Set a fixed height */
+}
+
+/* Button Styles */
+button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .chat-container {
+        width: 90%;
+    }
+
+    input[type="text"],
+    textarea {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h1>Chat Room</h1>
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message">
+                    <strong>{{ message.username }}:</strong> {{ message.content }} <p style="font-size: 9px; opacity: 0.6;">{{message.timestamp}}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Your name" required>
+            <textarea name="content" placeholder="Type your message..." required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</body>
+</html>
